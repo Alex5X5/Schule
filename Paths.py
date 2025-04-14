@@ -1,4 +1,6 @@
 from io import FileIO
 import os
+import sys
 
-def assets_path(filename:str) -> str: return str(os.path.abspath(__file__)).replace(r'\\',r'/') + '\\..Assets\\' + filename
+bundled_app_files_path_string = os.path.join(sys._MEIPASS if hasattr(sys,'_MEIPASS') and getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)))
+def assets_path(filename:str) -> str: return bundled_app_files_path_string + '\\Assets\\' + filename
