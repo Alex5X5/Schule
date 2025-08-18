@@ -1,4 +1,3 @@
-import pandas
 import Paths
 
 print(Paths.assets_path('names.csv'))
