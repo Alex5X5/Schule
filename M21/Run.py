@@ -1,5 +1,3 @@
-from M21.Inhaber import Inhaber
-from M21.Konto import Konto
+from M21.Kontoverwaltung import Kontoverwaltung
 
-
-k = Konto(Inhaber("test",1),1,1000)
+verwatung:Kontoverwaltung = Kontoverwaltung()
