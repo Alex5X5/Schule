@@ -2,10 +2,10 @@ import pandas
 from pandas import Series, DataFrame
 
 def run():
-    file_content:pandas.DataFrame = pandas.read_csv('H:/LF5/Pycharm/Schule/Assets/names.csv', delimiter=';')
+    file_content:pandas.DataFrame = pandas.read_csv('/Assets/names.csv', delimiter=';')
     lines:int = 0
     try:
-        with open('H:/LF5/Pycharm/Schule/Assets/datei.csv') as file_handle:
+        with open('/Assets/datei.csv') as file_handle:
             lines = len(file_handle.readlines())
     except FileNotFoundError as e:
         print(e)
