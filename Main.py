@@ -6,6 +6,8 @@ from importlib import import_module
 import Paths
 from Paths import PathHelper
 
+import Run
+
 
 def __gen_stub(module_number:str):
     path_helper:PathHelper = PathHelper(module_number)
@@ -25,7 +27,6 @@ def __run(module_number:str):
     try:
         #try to dynamically import the module
         module = import_module("Programms."+module_number+'.Run')
-
         for name, obj in inspect.getmembers(module):
             # Check if the line is callable (e.g., function, method, etc.)
             if callable(obj):# and not inspect.isfunction(obj):
@@ -35,6 +36,7 @@ def __run(module_number:str):
         #generate the needed module and re-run the module
         print(f'module {module_number} was not found')
         __gen_stub(module_number)
+        __run(module_number)
 
 if __name__ == '__main__':
     __run(input('enter module name:\n'))
