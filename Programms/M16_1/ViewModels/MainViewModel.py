@@ -3,12 +3,19 @@ import tkinter
 class MainViewModel:
 
     def __init__(self):
-        self.entry_text:tkinter.Variable = tkinter.Variable()
-        self.entry_text.trace_add("write", self.entry_text_changed)
-
+        self.output_text:tkinter.Variable = tkinter.Variable()
+        self.input_price_text:tkinter.Variable = tkinter.Variable()
+        self.input_volume_text:tkinter.Variable = tkinter.Variable()
+        self.input_price_text.trace_add("write", self.input_text_changed)
+        self.input_volume_text.trace_add("write", self.input_text_changed)
 
     def button_1_callback(self):
         print('button 1 was presssed')
 
-    def entry_text_changed(self, string1: str, string2: str, string3: str):
-        print(self.entry_text.get())
+    def input_text_changed(self, string1: str, string2: str, string3: str):
+        try:
+            input_price_float=float(self.input_price_text.get())
+            input_volume_float=float(self.input_volume_text.get())
+            self.output_text.set(str(input_price_float*input_volume_float))
+        except ValueError:
+            self.output_text.set('invalid input')
