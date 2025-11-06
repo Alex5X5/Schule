@@ -4,9 +4,10 @@ from typing import Any
 from Programms.M16_1.ViewModels import MainViewModel
 
 
-class MainView:
+class MainView(tkinter.Frame):
 
     def __init__(self):
+        super().__init__()
         self.window: tkinter.Tk = tkinter.Tk()
 
         self.DataContext:MainViewModel.MainViewModel = MainViewModel.MainViewModel()

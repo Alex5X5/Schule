@@ -23,6 +23,7 @@ def __gen_stub(module_number:str):
     with open(summary_file_path, 'w') as file_handle:
         file_handle.write(input("enter summary"))
 
+
 def __run(module_number:str):
     try:
         #try to dynamically import the module
@@ -38,6 +39,17 @@ def __run(module_number:str):
         __gen_stub(module_number)
         __run(module_number)
 
+
+def __get_module(path_to_check: str) -> str:
+    if path_to_check != '':
+        with open('last_module', 'w') as file_handle:
+            file_handle.write(path_to_check)
+            return path_to_check
+    else:
+        with open('last_module', 'r') as file_handle:
+            return file_handle.readlines()[0]
+
+
 if __name__ == '__main__':
-    __run(input('enter module name:\n'))
+    __run(__get_module(input('enter module name:\n')))
     print('finished main')
