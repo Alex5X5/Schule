@@ -8,9 +8,6 @@ class MainViewModel:
         self.value_green:tkinter.IntVar = tkinter.IntVar()
         self.value_blue:tkinter.IntVar = tkinter.IntVar()
 
-    def button_1_callback(self):
-        print('button 1 was presssed')
-
     def entry_text_changed(self, string1: str, string2: str, string3: str):
         print(self.entry_text.get())
 

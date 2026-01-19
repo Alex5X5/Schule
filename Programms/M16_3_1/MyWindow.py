@@ -1,6 +1,6 @@
 import tkinter
 
-from Programms.M16_3.Views.MainView import MainView
+from Programms.M16_3_1.Views.MainView import MainView
 
 class MyWindow(tkinter.Tk):
 

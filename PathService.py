@@ -40,27 +40,36 @@ def ensure_path_exists(path:str) -> str:
     return path
 
 def assets_path(filename:str) -> str:
-    return ensure_path_exists(os.path.join(PathHelper.bundled_app_files_path_string, 'Assets', filename))
+    return ensure_path_exists(os.path.join(PathService.bundled_app_files_path_string, 'Assets', filename))
+
+def schemata_path(filename:str) -> str:
+    return assets_path(os.path.join(PathService.bundled_app_files_path_string, 'GeneratorSchemata', filename))
 
 def project_path(filename:str) -> str:
     """
         :param filename:
         :return:
     """
-    return ensure_path_exists(PathHelper.bundled_app_files_path_string + '\\' + filename)
+    return ensure_path_exists(PathService.bundled_app_files_path_string + '\\' + filename)
 
 def module_path(filename:str, module_name:str) -> str:
-    return ensure_path_exists(PathHelper.bundled_app_files_path_string + '\\Programms\\' + module_name + '\\' + filename)
+    return ensure_path_exists(PathService.bundled_app_files_path_string + '\\Programms\\M' + module_name + '\\' + filename)
 
 
-class PathHelper:
+class PathService:
     bundled_app_files_path_string:str = os.path.join(getattr(sys, '_MEIPASS')
         if hasattr(sys, '_MEIPASS') and getattr(sys, 'frozen', False)
         else os.path.dirname(os.path.abspath(__file__)))
 
     def __init__(self, module_name:str):
-        self.module_name:str = module_name
-        ensure_path_exists(self.module_path(""))
+        self.module_name:str = module_name if module_name.startswith('M') else 'M'+module_name
+        self.module_path("")
+
+    def run_file_path(self) -> str:
+        return self.module_path('Run.py')
+
+    def module_path_string(self, filename: str) -> str:
+        return PathService.bundled_app_files_path_string + '\\Programms\\' + self.module_name + '\\' + filename
 
     def module_path(self, filename: str) -> str:
-        return ensure_path_exists(PathHelper.bundled_app_files_path_string + '\\Programms\\' + self.module_name + '\\' + filename)
+        return ensure_path_exists(self.module_path_string(filename))
