@@ -52,16 +52,16 @@ class GeneratorService:
                 if lines[index].startswith('#file:'):
                     if write_file_handle is not None:
                         if not write_file_handle.closed:
-                            write_file_handle.write('\n'.join(buffer))
+                            write_file_handle.write(''.join(buffer))
                             buffer = []
                             write_file_handle.close()
                     write_file_handle = open(self.path_service.module_path(lines[index].removeprefix('#file:').strip('\n')), 'w')
                     index += 1
                     continue
-                buffer.append(lines[index])
+                buffer.append(lines[index].replace('$(Module)', self.path_service.module_name))
                 if index == len(lines) - 1:
                     if write_file_handle is not None:
                         if not write_file_handle.closed:
-                            write_file_handle.write('\n'.join(buffer))
+                            write_file_handle.write(''.join(buffer))
                             write_file_handle.close()
                 index += 1
