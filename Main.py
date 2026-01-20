@@ -1,26 +1,9 @@
-import inspect
-import os
-
-from importlib import import_module
-from os.path import pathsep
-
 import PathService
-from PathService import PathService
-
-
-def __gen_stub(module_number:str):
-    path_helper:PathService = PathService(module_number)
-    path_helper.module_path('__init__.py')
-    run_file_path:str = path_helper.module_path('Run.py')
-    with open(run_file_path, 'w') as file_handle:
-        file_handle.write("""print('hello world!')""")
-    summary_file_path:str = PathService.ensure_path_exists(path_helper.module_path('Summary.txt'))
-    with open(summary_file_path, 'w') as file_handle:
-        file_handle.write(input("enter summary"))
+from Services.GeneratorService import GeneratorService
 
 def __run(module_number:str):
-    path_helper:PathService = PathService(module_name)
-    cmd = path_helper.module_path_string('Run.py')
+    path_helper:PathService.PathService = PathService.PathService(module_name)
+    cmd = path_helper.module_path_insecure('Run.py')
     try:
         with open(cmd) as file_handle:
             print('starting Run.py')
@@ -28,7 +11,7 @@ def __run(module_number:str):
         print('finished run')
     except FileNotFoundError:
         print(f'module {module_number} was not found')
-        __gen_stub(module_number)
+        GeneratorService(module_number).generate()
         __run(module_number)
 
 

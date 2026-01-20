@@ -1,7 +1,7 @@
 from mailbox import FormatError
 
-from M21.Inhaber import Inhaber
-from M21.Konto import Konto
+from Programms.M10.Inhaber import Inhaber
+from Programms.M10.Konto import Konto
 
 
 class Kontoverwaltung:

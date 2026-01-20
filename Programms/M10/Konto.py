@@ -1,7 +1,7 @@
 import copy
 
 from  dataclasses import dataclass
-from M21.Inhaber import Inhaber
+from Programms.M10.Inhaber import Inhaber
 
 
 @dataclass
