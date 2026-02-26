@@ -26,7 +26,7 @@ class GeneratorService:
             print(f'  {i}:{pathlib.Path(path).stem}')
         while True:
             try:
-                schema_name_str:str = input('')
+                schema_name_str:str = input('enter a number\n')
                 if schema_name_str == '':
                     self.__genrate_base()
                     break

@@ -1,18 +1,4 @@
-import sqlite3
+from Programms.M20 import MyWindow
 
-con = sqlite3.connect('test.db')
-cursor = con.cursor()
-cursor.execute("""DROP TABLE IF EXISTS UserData""")
-cursor.execute("""DROP TABLE IF EXISTS Geraete""")
-cursor.execute("""CREATE TABLE IF NOT EXISTS UserData (NutzerId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, OrderId INTEGER NOT NULL, Vorname VARCHAR(50) NOT NULL, Nachname VARCHAR(50) NOT NULL)""")
-cursor.execute("""CREATE TABLE IF NOT EXISTS Geraete (GeraeteId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Typ VARCHAR(30) NOT NULL, BesitzerId INTEGER, FOREIGN KEY(BesitzerId) REFERENCES UserData(NutzerId))""")
-con.commit()
-#cursor.execute("""INSERT INTO UserData (Alter, Vorname, Nachname) VALUES (?, ?, ?)""", (30,'Max','Mustermann'))
-cursor.execute("""INSERT INTO Geraete (Typ, BesitzerId) VALUES (?, ?)""", ('Laptop', cursor.lastrowid))
-con.commit()
-cursor.execute("SELECT * FROM Geraete")
-con.commit()
-print(cursor.fetchall())
-
-con.commit()
-print(cursor.fetchall())
+window: MyWindow.MyWindow = MyWindow.MyWindow()
+window.mainloop()
