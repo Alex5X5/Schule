@@ -1,8 +1,11 @@
 import ast
+import inspect
 from collections.abc import Callable
+from types import CodeType
 from typing import Any
 
 from Programms.Mod.DatabaseCollection import DatabaseCollection
+from Programms.Mod.DatabaseContext import DatabaseContext
 
 
 class DesignTimeService:
@@ -12,20 +15,27 @@ class DesignTimeService:
     __buffered_types:list[type] = []
 
     @staticmethod
-    def register_context_for_mapping(context:'DatabaseContext'):
-        DesignTimeService.__contexts_to_map.append(context)
+    def register_context_for_mapping(context:DatabaseContext):
+        properties:dict[str, Any] = context.__dict__
+        for prop in properties.keys():
+            if isinstance(properties[prop], DatabaseCollection):
+                DesignTimeService.__contexts_to_map.append(properties[prop])
 
     @staticmethod
     def on_initialized():
         for context in DesignTimeService.__contexts_to_map:
-            v:dict[str, Any] = context.__dict__
-            for info in v.keys():
-                if isinstance(v[info], DatabaseCollection):
-                    print(info)
+            context
+
+    @staticmethod
+    def register_data_type(t:type):
+        if t not in DesignTimeService.__registered_types:
+            DesignTimeService.__registered_types.append(t)
 
     @staticmethod
     def is_type_registered(t:type):
         return t in DesignTimeService.__registered_types
+
+
 
 class Expr:
     """Records operations instead of executing them."""
@@ -106,14 +116,15 @@ def test_function() -> int:
     return 5
 
 # Usage
-lam = lambda x: x > test_function() and x < 10
+#lam = lambda x: x > test_function() and x < 10
 
-ops = inspect_lambda(lam)
+#ops = inspect_lambda(lam)
 #print(ops)  # [('>', 5), ('<', 10)]
 
 
 import textwrap
 def test_compile_with_lambda():
+    lam = lambda x: x > test_function() and x < 10
     code_str = """
     def bump(x):
         return x + 1
@@ -123,9 +134,20 @@ def test_compile_with_lambda():
     print(debug_me)
 
     """
+
+    def recursive_dump(ast_tree:ast.Module):
+        for b in ast_tree.body:
+            print(ast.dump(b))
+            if hasattr(b, 'value') and hasattr(b.value, 'body'):
+                recursive_dump(b.value.body.values)
+
+    code_str = inspect.getsource(lam)
+    print(code_str)
     dedented_code_str = textwrap.dedent(code_str)
     tree = ast.parse(dedented_code_str, mode='exec')
-    for b in tree.body:
-        print(b)
+    recursive_dump(tree)
+        #if isinstance(b, ast.Expr):
+        #    print(b.value)
+        #if isinstance(b, ast.Assign):
 
 test_compile_with_lambda()

@@ -1,14 +1,16 @@
 import functools
-from collections.abc import Callable
-from typing import Any
+from typing import Any, Callable
 
-from Programms.Mod.DesignTimeService import DesignTimeService
+import sqlite3
+
+from Programms.Mod.DatabaseCollection import DatabaseCollection
 
 
 class DatabaseContext:
 
-    def __init__(self):
+    def __init__(self, path:str):
         super().__init__()
+        self.path = path
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
@@ -21,6 +23,14 @@ class DatabaseContext:
                 original_init(self, *args_, **kwargs_)
             else:
                 super(cls, self).__init__(*args_, **kwargs_)
-            DesignTimeService.register_context_for_mapping(self)
+            properties: dict[str, Any] = self.__dict__
+            for prop in properties.keys():
+                if isinstance(properties[prop], DatabaseCollection):
+                    properties[prop].map_data_type()
 
         cls.__init__ = patched_init
+
+    def open_connection(self) -> sqlite3.Connection:
+        con = sqlite3.connect(self.path)
+        con.row_factory = sqlite3.Row
+        return con

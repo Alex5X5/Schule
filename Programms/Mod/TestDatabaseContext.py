@@ -6,22 +6,20 @@ from Programms.Mod.DatabaseContext import DatabaseContext
 
 @dataclass
 class User:
-
     id:int
     name:str
     age:int
 
 
 @dataclass
-class Job:
-
+class Device:
     id:int
-    worker:User
+    owner:User
 
 
 class TestDatabaseContext(DatabaseContext):
 
     def __init__(self):
-        super().__init__()
-        self.users:DatabaseCollection = DatabaseCollection(User)
-        self.devices:DatabaseCollection = DatabaseCollection(Job)
+        super().__init__('database.sqlite3')
+        self.users:DatabaseCollection = DatabaseCollection(self, User)
+        self.devices:DatabaseCollection = DatabaseCollection(self, Device)
