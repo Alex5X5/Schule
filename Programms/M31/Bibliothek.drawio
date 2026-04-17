@@ -1,0 +1,126 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Seite-1" id="5XOwGxBaovGQHwc-Bbqi">
+    <mxGraphModel dx="2911" dy="1348" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-5" value="sd: Buch Ausleihen" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;" vertex="1" parent="1">
+          <mxGeometry x="-800" y="40" width="880" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-18" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;size=70;" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry x="180" y="80" width="30" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-15" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-18">
+          <mxGeometry x="10" y="110" width="10" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-19" value="Kunde" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry x="165" y="150" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-20" value=":Terminal" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry x="400" y="120" width="120" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-23" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-20">
+          <mxGeometry x="55" y="70" width="10" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-22" value=": Bibliothek-Server" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry x="630" y="120" width="120" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-26" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-22">
+          <mxGeometry x="55" y="70" width="10" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-35" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-22">
+          <mxGeometry x="55" y="245" width="10" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-39" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-22">
+          <mxGeometry x="60" y="360" width="10" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-40" value="Ausleihe&lt;br&gt;speichern" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" edge="1" target="c0_2Lvf9NrHY-oncQfka-39" parent="c0_2Lvf9NrHY-oncQfka-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="65" y="340" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="95" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-24" value="Bibiotheksausweis scannen" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="200" y="200" as="sourcePoint" />
+            <mxPoint x="455" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-25" value="Nutzerdaten anfragen" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="465" y="210" as="sourcePoint" />
+            <mxPoint x="685" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-27" value="Nutzerdaten zurückgeben" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="685" y="240" as="sourcePoint" />
+            <mxPoint x="465" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-28" value="Nutzerdaten zurückgeben" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="455" y="270" as="sourcePoint" />
+            <mxPoint x="200" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-30" value="Nutzer zum Scannen des&lt;br&gt;Buchs auffordern" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry x="0.2157" y="-10" relative="1" as="geometry">
+            <mxPoint x="455" y="330" as="sourcePoint" />
+            <mxPoint x="200" y="330" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-31" value="Buch Daten" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="360" as="sourcePoint" />
+            <mxPoint x="455" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-32" value="Buch Daten" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5" target="c0_2Lvf9NrHY-oncQfka-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="465" y="380" as="sourcePoint" />
+            <mxPoint x="735" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-36" value="Verfügbarkeit zurückgeben" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5" source="c0_2Lvf9NrHY-oncQfka-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="735" y="410" as="sourcePoint" />
+            <mxPoint x="465" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-37" value="&lt;span style=&quot;color: rgb(16, 20, 24); font-family: monospace, monospace; text-align: start; background-color: rgb(248, 249, 250);&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;alt&lt;/font&gt;&lt;/span&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=50;height=20;" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-5">
+          <mxGeometry x="50" y="440" width="790" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-38" value="[Buch Verfügbar]&amp;nbsp;&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-37">
+          <mxGeometry y="25.24000000000001" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-42" value="Fehler zurückgeben" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-37">
+          <mxGeometry x="0.0588" y="-10" relative="1" as="geometry">
+            <mxPoint x="405" y="140" as="sourcePoint" />
+            <mxPoint x="150" y="140" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-43" value="[sonst]&amp;nbsp;&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="c0_2Lvf9NrHY-oncQfka-37">
+          <mxGeometry y="110" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-44" value="Rückgabedatum anzeigen" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;curved=0;rounded=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-37">
+          <mxGeometry x="0.0588" y="-10" relative="1" as="geometry">
+            <mxPoint x="405" y="39.819999999999936" as="sourcePoint" />
+            <mxPoint x="150" y="39.819999999999936" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c0_2Lvf9NrHY-oncQfka-41" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=-0.005;exitY=0.415;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.41;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="c0_2Lvf9NrHY-oncQfka-5" source="c0_2Lvf9NrHY-oncQfka-37" target="c0_2Lvf9NrHY-oncQfka-37">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="500" as="sourcePoint" />
+            <mxPoint x="470" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
