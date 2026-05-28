@@ -1,5 +1,6 @@
 #file:__init__.py
 #file:summary.txt
+#file:requirements.txt
 #file:Run.py
 from mysql import connector
 from mysql.connector import MySQLConnection

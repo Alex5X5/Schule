@@ -1,4 +1,4 @@
-from Programms.MDbMonitor.Models.Location import Location
+from Programms.MDbMonitor.Api.Models.Location import Location
 
 
 class Station:

@@ -35,6 +35,7 @@ class ServiceCollection:
     def __init__(self):
         self.__services_to_build:list[tuple[Type, Type, ImplementationPolicy]] = []
         self.__services:dict[Type, Any] = {}
+        self.__services.update({ServiceCollection:self})
         self.__did_build_services:bool = False
 
     @property
@@ -66,32 +67,35 @@ class DependencyInjector:
         #print(f"started buiding services")
         self.__service_collection.enable_did_build_services()
         for cls_T, reg_T, policy in self.__service_collection.Services_to_build:
-            entry_points:list[Callable]
-            try:
-                entry_points = [getattr(cls_T, p) for p in DependencyInjector.entry_points[cls_T]]
-            except KeyError:
-                raise RuntimeError(f"""the type {cls_T.__name__} has no methods marked with 'DpiEntryPoint'""")
-            entry_points = sorted(entry_points, key = lambda p: len(signature(p).parameters))
-            for entry_point in entry_points:
-                all_params_available:bool = True
-                prams_to_use:list[Any] = []
-                for param_name, param in signature(entry_point).parameters.items():
-                    if param_name == 'self':
-                        continue
-                    val = self.__service_collection.get_service(param.annotation)
-                    if val is None:
-                        all_params_available = False
-                        print(f"missing parameter of type:{param.annotation}")
-                        break
-                    else:
-                        prams_to_use.append(val)
-                if all_params_available:
-                    instance = object.__new__(object)
-                    instance = cls_T.__new__(cls_T, instance)
-                    entry_point(instance, *prams_to_use)
-                    self.__service_collection.Services.update({reg_T:instance})
-                    break
+            self.__build_service(cls_T, reg_T, policy)
         return self.__service_collection
+
+    def __build_service(self, cls_t:Type, reg_t:Type, policy:ImplementationPolicy) -> None:
+        entry_points:list[Callable]
+        try:
+            entry_points = [getattr(cls_t, p) for p in DependencyInjector.entry_points[cls_t]]
+        except KeyError:
+            raise RuntimeError(f"""the type {cls_t.__name__} has no methods marked with 'DpiEntryPoint'""")
+        entry_points = sorted(entry_points, key = lambda p: len(signature(p).parameters))
+        for entry_point in entry_points:
+            all_params_available:bool = True
+            prams_to_use:list[Any] = []
+            for param_name, param in signature(entry_point).parameters.items():
+                if param_name == 'self':
+                    continue
+                val = self.__service_collection.get_service(param.annotation)
+                if val is None:
+                    all_params_available = False
+                    print(f"missing parameter of type:{param.annotation}")
+                    break
+                else:
+                    prams_to_use.append(val)
+            if all_params_available:
+                instance = object.__new__(object)
+                instance = cls_t.__new__(cls_t, instance)
+                entry_point(instance, *prams_to_use)
+                self.__service_collection.Services.update({reg_t:instance})
+                break
 
     def register_service_singleton_for_type(self, cls_T:Type, reg_T:Type):
         self.__service_collection.Services_to_build.append((reg_T, cls_T, ImplementationPolicy.Singleton))

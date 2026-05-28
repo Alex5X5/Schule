@@ -1,4 +1,4 @@
-from Programms.MDbMonitor.Services.DependencyInjector import DpiEntryPoint
+from Programms.MDbMonitor.lib.DependencyInjector import DpiEntryPoint
 
 
 class Configuration:

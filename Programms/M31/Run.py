@@ -1,4 +1,4 @@
-from Programms.MDbMonitor.Services import ApiService
+from Programms.MDbMonitor.Api.Services import ApiService
 
 base_url:str = "https://192.168.100.120/"
 #response = requests.get(f"{base_url}/topass-api/card-sets/trucks/A4")

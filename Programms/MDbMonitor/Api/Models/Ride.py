@@ -1,4 +1,4 @@
-from Programms.MDbMonitor.Models.Line import Line
+from Programms.MDbMonitor.Api.Models.Line import Line
 
 class Ride:
 

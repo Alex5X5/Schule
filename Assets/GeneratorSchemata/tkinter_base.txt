@@ -1,5 +1,6 @@
 #file:__init__.py
 #file:summary.txt
+#file:requirements.txt
 #file:ViewModels/__init__.py
 #file:ViewModels/MainViewModel.py
 import math
