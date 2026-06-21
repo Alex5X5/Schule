@@ -27,7 +27,7 @@ def __get_module(path_to_check: str) -> str:
 
 
 if __name__ == '__main__':
-    module_name: str = __get_module(input('enter module name:\n'))
+    module_name: str = __get_module(input('enter module name\nleave empty to run last module:\n'))
     print(f"running module \"{module_name}\"")
     __run(module_name)
     print('finished main')
