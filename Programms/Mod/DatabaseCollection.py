@@ -3,7 +3,6 @@ from lib2to3.fixes.fix_imports2 import MAPPING
 from typing import Any
 
 from Programms.Mod.DesignTimeService import DesignTimeService
-from pandas import DataFrame
 
 
 class DatabaseCollection:
@@ -31,13 +30,13 @@ class DatabaseCollection:
         if self.__mapped_data_type:
             return self.type_mapping
         mapping: list[tuple[str, type]] = []
-        dummy_object = object()
-        self.data_type.__init__(dummy_object)
+        dummy_object = self.create_dummy_object(self.data_type)
         data_type_properties:dict[str, Any] = dummy_object.__dict__
         for prop in data_type_properties.keys():
             if data_type_properties[prop].__class__ == str.__class__:
                 pass
             self.create_column_command(prop, data_type_properties[prop])
+
         DesignTimeService.register_data_type(self.data_type)
         return []
 
