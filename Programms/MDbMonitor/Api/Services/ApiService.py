@@ -20,8 +20,9 @@ class ApiService:
 
     def __get_from_api(self, path:str, params:dict[str, str|int]) -> list[dict[str, Any]]:
         url = self.__config.base_url + '/' + path
-        response = requests.get(url, params=params)
-        return response.json()
+        return {'departures':[]}
+#        response = requests.get(url, params=params)
+#        return response.json()
 
     def get_locations(self) -> Station:
         return None

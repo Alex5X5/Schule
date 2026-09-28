@@ -1,5 +1,6 @@
 from enum import Enum, auto
 from functools import update_wrapper
+from idlelib.searchengine import get_selection
 
 from typing import Any, Type, Callable
 from inspect import signature
@@ -28,15 +29,35 @@ class DpiEntryPoint:
 
 class ImplementationPolicy(Enum):
     Singleton = auto
+    Transient = auto
+
+
+class Implementation:
+
+    def __init__(self, implementation_type:Type, object_type:Type, policy:ImplementationPolicy):
+        self.implementation_type = implementation_type
+        self.object_type = object_type
+        self.policy = policy
 
 
 class ServiceCollection:
 
-    def __init__(self):
+    def __init__(self, injector:'DependencyInjector'):
+        self.injector = injector
         self.__services_to_build:list[tuple[Type, Type, ImplementationPolicy]] = []
         self.__services:dict[Type, Any] = {}
         self.__services.update({ServiceCollection:self})
         self.__did_build_services:bool = False
+
+    def __getitem__(self, index:Type) -> Any | None:
+        return self.get_service(index)
+
+    def get_service(self, T: Type) -> Any | None:
+        # print(f"services:\n{'\n'.join(s.__name__ for s in self.__services)}")
+        implementation = self.__services.get(T)
+        if (implementation.)
+
+        return service
 
     @property
     def Services_to_build(self) -> list[tuple[Type, Type, ImplementationPolicy]]:
@@ -51,9 +72,6 @@ class ServiceCollection:
     def enable_did_build_services(self) -> None:
         self.__did_build_services = True
 
-    def get_service(self, T:Type) -> Any | None:
-        #print(f"services:\n{'\n'.join(s.__name__ for s in self.__services)}")
-        return self.__services.get(T)
 
 
 class DependencyInjector:
