@@ -5,10 +5,8 @@ from Programms.MDbMonitor.App.Services.LineService import LineService
 from Programms.MDbMonitor.App.Services.LocationService import LocationService
 from Programms.MDbMonitor.App.Services.StationService import StationService
 from Programms.MDbMonitor.Frontend.MainWindow import MainWindow
-from Programms.MDbMonitor.Frontend.ViewModels.HeaderModel import HeaderModel
-from Programms.MDbMonitor.Frontend.Views.MainView import MainView
 from Programms.MDbMonitor.Shared.Configuration import Configuration
-from Programms.MDbMonitor.lib.DependencyInjector import DependencyInjector
+from Programms.MDbMonitor.lib.DependencyInjector import ServiceCollection
 
 from Programms.MDbMonitor.Api.Services.ApiService import ApiService
 
@@ -18,28 +16,29 @@ from Programms.MDbMonitor.App.Mapping.LocationMapper import LocationMapper
 from Programms.MDbMonitor.App.Mapping.StationMapper import StationMapper
 
 from Programms.MDbMonitor.Frontend.ViewModels.DepartureTableModel import DepartureTableModel
+from Programms.MDbMonitor.Frontend.ViewModels.HeaderModel import HeaderModel
+from Programms.MDbMonitor.Frontend.ViewModels.MainViewModel import MainViewModel
 
-builder = DependencyInjector()
+collection = ServiceCollection()
 
-builder.register_service_singleton(Configuration)
-builder.register_service_singleton(LineMapper)
-builder.register_service_singleton(LocationMapper)
-builder.register_service_singleton(StationMapper)
-builder.register_service_singleton(DepartureMapper)
+collection.register_singleton(Configuration)
+collection.register_singleton(LineMapper)
+collection.register_singleton(LocationMapper)
+collection.register_singleton(StationMapper)
+collection.register_singleton(DepartureMapper)
 
-builder.register_service_singleton(ApiService)
-builder.register_service_singleton(LineService)
-builder.register_service_singleton(LocationService)
-builder.register_service_singleton(StationService)
-builder.register_service_singleton(DepartureService)
+collection.register_singleton(ApiService)
+collection.register_singleton(LineService)
+collection.register_singleton(LocationService)
+collection.register_singleton(StationService)
+collection.register_singleton(DepartureService)
 
 
-builder.register_service_singleton(DepartureTableModel)
-builder.register_service_singleton(HeaderModel)
+collection.register_transient(DepartureTableModel)
+collection.register_singleton(MainViewModel)
+collection.register_transient(HeaderModel)
 
-services = builder.build_services()
-
-window:MainWindow = MainWindow(services)
+window:MainWindow = MainWindow(collection)
 
 #window.main_view = MainView(window, services)
 

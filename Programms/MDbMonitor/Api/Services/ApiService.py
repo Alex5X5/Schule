@@ -31,7 +31,7 @@ class ApiService:
         params:dict[str, str] = {"query" : name, "results" : 50}
         result:list[Station] = []
         response:list[dict[str, Any]] = self.__get_from_api('locations', params)
-        response = [entry for entry in response if entry.get('type') == 'station']
+        response = [entry for entry in response if isinstance(entry, dict) and entry.get('type') == 'station']
         for data in response:
             location = Location(data['location']['id'], data['location']['latitude'], data['location']['longitude'])
             station = Station(data['name'], data['id'], location)

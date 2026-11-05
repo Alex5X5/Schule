@@ -17,10 +17,12 @@ class DepartureTableModel:
 
     def get_departures(self) -> list[Departure]:
         station = self.station_service.get_station_by_name(self.station_name)
+        if station is None:
+            return []
         return self.departure_service.get_all_departures(station)
 
     def on_update_table(self):
         pass
 
-    def on_update_location(self):
+    def on_update_location(self, data:str) -> None:
         pass

@@ -1,9 +1,13 @@
 from enum import Enum, auto
 from functools import update_wrapper
-from idlelib.searchengine import get_selection
 
 from typing import Any, Type, Callable
 from inspect import signature
+
+from abc import ABC, abstractmethod
+
+
+_entry_points:dict[type, list[str]] = {}
 
 
 class DpiEntryPoint:
@@ -14,9 +18,9 @@ class DpiEntryPoint:
 
     def __set_name__(self, owner, method_name):
         self.owner_class = owner
-        entry_point_names = DependencyInjector.entry_points.get(self.owner_class, [])
+        entry_point_names = _entry_points.get(self.owner_class, [])
         entry_point_names.append(method_name)
-        DependencyInjector.entry_points.update({self.owner_class: entry_point_names})
+        _entry_points.update({self.owner_class: entry_point_names})
 
     def __get__(self, instance, owner):
         if instance is None:
@@ -27,81 +31,31 @@ class DpiEntryPoint:
         return wrapper
 
 
-class ImplementationPolicy(Enum):
-    Singleton = auto
-    Transient = auto
+class Implementation(ABC):
 
-
-class Implementation:
-
-    def __init__(self, implementation_type:Type, object_type:Type, policy:ImplementationPolicy):
+    def __init__(self, object_type:Type, implementation_type:Type, collection:'ServiceCollection'):
         self.implementation_type = implementation_type
         self.object_type = object_type
-        self.policy = policy
+        self.collection = collection
 
+    @abstractmethod
+    def get_service(self) -> Any:
+        pass
 
-class ServiceCollection:
-
-    def __init__(self, injector:'DependencyInjector'):
-        self.injector = injector
-        self.__services_to_build:list[tuple[Type, Type, ImplementationPolicy]] = []
-        self.__services:dict[Type, Any] = {}
-        self.__services.update({ServiceCollection:self})
-        self.__did_build_services:bool = False
-
-    def __getitem__(self, index:Type) -> Any | None:
-        return self.get_service(index)
-
-    def get_service(self, T: Type) -> Any | None:
-        # print(f"services:\n{'\n'.join(s.__name__ for s in self.__services)}")
-        implementation = self.__services.get(T)
-        if (implementation.)
-
-        return service
-
-    @property
-    def Services_to_build(self) -> list[tuple[Type, Type, ImplementationPolicy]]:
-        return self.__services_to_build
-
-    @property
-    def Services(self) -> dict[Type, Any]:
-        if not self.__did_build_services:
-            raise RuntimeError('can not get services before building')
-        return self.__services
-
-    def enable_did_build_services(self) -> None:
-        self.__did_build_services = True
-
-
-
-class DependencyInjector:
-
-    entry_points:dict[type, list[str]] = {}
-
-    def __init__(self):
-        self.__service_collection:ServiceCollection = ServiceCollection()
-
-    def build_services(self) -> ServiceCollection:
-        #print(f"started buiding services")
-        self.__service_collection.enable_did_build_services()
-        for cls_T, reg_T, policy in self.__service_collection.Services_to_build:
-            self.__build_service(cls_T, reg_T, policy)
-        return self.__service_collection
-
-    def __build_service(self, cls_t:Type, reg_t:Type, policy:ImplementationPolicy) -> None:
-        entry_points:list[Callable]
+    def _build_service(self, cls_t: Type) -> Any:
+        entry_points: list[Callable]
         try:
-            entry_points = [getattr(cls_t, p) for p in DependencyInjector.entry_points[cls_t]]
+            entry_points = [getattr(cls_t, p) for p in _entry_points[cls_t]]
         except KeyError:
-            raise RuntimeError(f"""the type {cls_t.__name__} has no methods marked with 'DpiEntryPoint'""")
-        entry_points = sorted(entry_points, key = lambda p: len(signature(p).parameters))
+            raise RuntimeError(f"""the type '{cls_t.__name__}' has no methods marked with 'DpiEntryPoint'""")
+        entry_points = sorted(entry_points, key=lambda p: len(signature(p).parameters))
         for entry_point in entry_points:
-            all_params_available:bool = True
-            prams_to_use:list[Any] = []
+            all_params_available: bool = True
+            prams_to_use: list[Any] = []
             for param_name, param in signature(entry_point).parameters.items():
                 if param_name == 'self':
                     continue
-                val = self.__service_collection.get_service(param.annotation)
+                val = self.collection.get_service(param.annotation)
                 if val is None:
                     all_params_available = False
                     print(f"missing parameter of type:{param.annotation}")
@@ -112,17 +66,63 @@ class DependencyInjector:
                 instance = object.__new__(object)
                 instance = cls_t.__new__(cls_t, instance)
                 entry_point(instance, *prams_to_use)
-                self.__service_collection.Services.update({reg_t:instance})
-                break
+                return instance
+        raise RuntimeError(f"unable to construct the type '{cls_t.__name__}'")
 
-    def register_service_singleton_for_type(self, cls_T:Type, reg_T:Type):
-        self.__service_collection.Services_to_build.append((reg_T, cls_T, ImplementationPolicy.Singleton))
 
-    def register_service_singleton(self, cls_T:Type):
-        self.register_service_singleton_for_type(cls_T, cls_T)
+class SingletonImplementation(Implementation):
 
-    def register_service_singleton_instance(self, cls_T:Type, instance):
-        self.__service_collection.Services[cls_T] = instance
+    def __init__(self, object_type:Type, implementation_type:Type, collection:'ServiceCollection', instance:Any|None = None):
+        super().__init__(object_type, implementation_type, collection)
+        self.__singleton : Any | None = instance
 
-    def register_service_transient(self):
-        pass
+    def get_service(self) -> Any:
+        if self.__singleton is not None:
+            return self.__singleton
+        self.__singleton = self._build_service(self.object_type)
+        return self.__singleton
+
+
+class TransientImplementation(Implementation):
+
+    def __init__(self, object_type:Type, implementation_type:Type, collection:'ServiceCollection'):
+        super().__init__(object_type, implementation_type, collection)
+
+    def get_service(self) -> Any:
+        service = self._build_service(self.object_type)
+        return service
+
+
+class ServiceCollection:
+
+    def __init__(self):
+        self.__services:dict[Type,Implementation] = {}
+        self.register_singleton_instance(ServiceCollection, self)
+
+    def __getitem__(self, index:Type) -> Any | None:
+        return self.get_service(index)
+
+    def register_singleton_for_type(self, cls_t:Type, reg_t:Type):
+        implementation = SingletonImplementation(cls_t, reg_t, self)
+        self.__services[implementation.implementation_type] = implementation
+
+    def register_singleton(self, cls_t:Type):
+        self.register_singleton_for_type(cls_t, cls_t)
+
+    def register_singleton_instance(self, cls_t:Type, instance:Any):
+        implementation = SingletonImplementation(cls_t, cls_t, self, instance)
+        self.__services[implementation.implementation_type] = implementation
+
+    def register_transient(self, cls_t:Type):
+        self.register_singleton_for_type(cls_t, cls_t)
+
+    def register_transient_for_type(self, cls_t:Type, reg_t:Type):
+        implementation = TransientImplementation(cls_t, reg_t, self)
+        self.__services[implementation.implementation_type] = implementation
+
+    def get_service(self, t:Type) -> Any | None:
+        implementation = self.__services.get(t)
+        if implementation is None:
+            raise RuntimeError(f"no service for '{t.__name__}' was registered")
+        service = implementation.get_service()
+        return service
