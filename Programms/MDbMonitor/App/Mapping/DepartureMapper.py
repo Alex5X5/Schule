@@ -5,7 +5,7 @@ from Programms.MDbMonitor.Api.Models.Departure import Departure as api_Departure
 
 from Programms.MDbMonitor.App.Mapping.LineMapper import LineMapper
 
-from Programms.MDbMonitor.lib.DependencyInjector import DpiEntryPoint
+from libs.DependencyInjection import DpiEntryPoint
 
 
 class DepartureMapper:

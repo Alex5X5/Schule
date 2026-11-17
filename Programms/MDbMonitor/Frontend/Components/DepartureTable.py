@@ -1,13 +1,12 @@
 import tkinter
 from tkinter import ttk
 from tkinter.ttk import Treeview
-from typing import Any
 
 from Programms.MDbMonitor.App.Models.Departure import Departure
 
 from Programms.MDbMonitor.Frontend.ViewModels.DepartureTableModel import DepartureTableModel
 
-from Programms.MDbMonitor.lib.DependencyInjector import ServiceCollection
+from libs.DependencyInjection import ServiceCollection
 
 class DepartureTable(tkinter.Frame):
 

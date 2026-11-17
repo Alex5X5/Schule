@@ -1,5 +1,4 @@
-from enum import Enum, auto
-from functools import update_wrapper
+import functools
 
 from typing import Any, Type, Callable
 from inspect import signature
@@ -25,9 +24,11 @@ class DpiEntryPoint:
     def __get__(self, instance, owner):
         if instance is None:
             return self.func
+
         def wrapper(*args, **kwargs):
             return self.func(instance, *args, **kwargs)
-        update_wrapper(wrapper, self.func)
+
+        functools.update_wrapper(wrapper, self.func)
         return wrapper
 
 
@@ -42,7 +43,7 @@ class Implementation(ABC):
     def get_service(self) -> Any:
         pass
 
-    def _build_service(self, cls_t: Type) -> Any:
+    def build_service(self, cls_t: Type) -> Any:
         entry_points: list[Callable]
         try:
             entry_points = [getattr(cls_t, p) for p in _entry_points[cls_t]]
@@ -72,14 +73,14 @@ class Implementation(ABC):
 
 class SingletonImplementation(Implementation):
 
-    def __init__(self, object_type:Type, implementation_type:Type, collection:'ServiceCollection', instance:Any|None = None):
+    def __init__(self, object_type:Type, implementation_type:Type, collection:'ServiceCollection', instance:Any | None = None):
         super().__init__(object_type, implementation_type, collection)
-        self.__singleton : Any | None = instance
+        self.__singleton: Any | None = instance
 
     def get_service(self) -> Any:
         if self.__singleton is not None:
             return self.__singleton
-        self.__singleton = self._build_service(self.object_type)
+        self.__singleton = self.build_service(self.object_type)
         return self.__singleton
 
 
@@ -89,7 +90,7 @@ class TransientImplementation(Implementation):
         super().__init__(object_type, implementation_type, collection)
 
     def get_service(self) -> Any:
-        service = self._build_service(self.object_type)
+        service = self.build_service(self.object_type)
         return service
 
 
@@ -97,20 +98,17 @@ class ServiceCollection:
 
     def __init__(self):
         self.__services:dict[Type,Implementation] = {}
-        self.register_singleton_instance(ServiceCollection, self)
+        self.register_singleton_instance(self)
 
-    def __getitem__(self, index:Type) -> Any | None:
-        return self.get_service(index)
+    def register_singleton(self, cls_t:Type):
+        self.register_singleton_for_type(cls_t, cls_t)
 
     def register_singleton_for_type(self, cls_t:Type, reg_t:Type):
         implementation = SingletonImplementation(cls_t, reg_t, self)
         self.__services[implementation.implementation_type] = implementation
 
-    def register_singleton(self, cls_t:Type):
-        self.register_singleton_for_type(cls_t, cls_t)
-
-    def register_singleton_instance(self, cls_t:Type, instance:Any):
-        implementation = SingletonImplementation(cls_t, cls_t, self, instance)
+    def register_singleton_instance(self, instance:Any):
+        implementation = SingletonImplementation(instance.__class__, instance.__class__, self, instance)
         self.__services[implementation.implementation_type] = implementation
 
     def register_transient(self, cls_t:Type):

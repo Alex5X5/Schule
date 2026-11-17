@@ -1,12 +1,10 @@
-import tkinter
-
 from Programms.MDbMonitor.App.Services.DepartureService import DepartureService
 from Programms.MDbMonitor.App.Services.LineService import LineService
 from Programms.MDbMonitor.App.Services.LocationService import LocationService
 from Programms.MDbMonitor.App.Services.StationService import StationService
-from Programms.MDbMonitor.Frontend.MainWindow import MainWindow
+#from Programms.MDbMonitor.Frontend.MainWindow import MainWindow
 from Programms.MDbMonitor.Shared.Configuration import Configuration
-from Programms.MDbMonitor.lib.DependencyInjector import ServiceCollection
+from libs.DependencyInjection import ServiceCollection
 
 from Programms.MDbMonitor.Api.Services.ApiService import ApiService
 
@@ -21,7 +19,9 @@ from Programms.MDbMonitor.Frontend.ViewModels.MainViewModel import MainViewModel
 
 collection = ServiceCollection()
 
-collection.register_singleton(Configuration)
+config = Configuration()
+
+collection.register_singleton_instance(config)
 collection.register_singleton(LineMapper)
 collection.register_singleton(LocationMapper)
 collection.register_singleton(StationMapper)
@@ -38,7 +38,7 @@ collection.register_transient(DepartureTableModel)
 collection.register_singleton(MainViewModel)
 collection.register_transient(HeaderModel)
 
-window:MainWindow = MainWindow(collection)
+#window:MainWindow = MainWindow(collection)
 
 #window.main_view = MainView(window, services)
 
@@ -53,4 +53,7 @@ window:MainWindow = MainWindow(collection)
 #for departure in departures:
 #    print(departure.line)
 
-window.mainloop()
+model:MainViewModel = collection.get_service(DepartureTableModel)
+print(model)
+
+#window.mainloop()

@@ -1,6 +1,6 @@
 from Programms.MDbMonitor.Api.Models.Location import Location as api_Location
 from Programms.MDbMonitor.App.Models.Location import Location
-from Programms.MDbMonitor.lib.DependencyInjector import DpiEntryPoint
+from libs.DependencyInjection import DpiEntryPoint
 
 
 class LocationMapper:

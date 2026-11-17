@@ -2,7 +2,7 @@ import tkinter
 
 from Programms.MDbMonitor.Frontend.Components.DepartureTable import DepartureTable
 from Programms.MDbMonitor.Frontend.Components.Header import Header
-from Programms.MDbMonitor.lib.DependencyInjector import ServiceCollection
+from libs.DependencyInjection import ServiceCollection
 from Programms.MDbMonitor.Frontend.ViewModels.MainViewModel import MainViewModel
 
 

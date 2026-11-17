@@ -1,7 +1,7 @@
 import tkinter
 
 from Programms.MDbMonitor.Frontend.Views.MainView import MainView
-from Programms.MDbMonitor.lib.DependencyInjector import ServiceCollection
+from libs.DependencyInjection import ServiceCollection
 
 
 class MainWindow(tkinter.Tk):

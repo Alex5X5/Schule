@@ -1,6 +1,4 @@
-import tkinter
-
-from Programms.MDbMonitor.lib.DependencyInjector import DpiEntryPoint
+from libs.DependencyInjection import DpiEntryPoint
 
 class HeaderModel:
 

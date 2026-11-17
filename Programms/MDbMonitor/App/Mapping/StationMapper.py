@@ -1,7 +1,7 @@
 from Programms.MDbMonitor.Api.Models.Station import Station as api_Station
 from Programms.MDbMonitor.App.Models.Station import Station
 from Programms.MDbMonitor.App.Mapping.LocationMapper import LocationMapper
-from Programms.MDbMonitor.lib.DependencyInjector import DpiEntryPoint
+from libs.DependencyInjection import DpiEntryPoint
 
 
 class StationMapper:

@@ -1,6 +1,4 @@
-import tkinter
-
-from Programms.MDbMonitor.lib.DependencyInjector import DpiEntryPoint, ServiceCollection
+from libs.DependencyInjection import DpiEntryPoint, ServiceCollection
 
 from Programms.MDbMonitor.App.Services.DepartureService import DepartureService
 from Programms.MDbMonitor.App.Services.StationService import StationService

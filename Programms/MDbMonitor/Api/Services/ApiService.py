@@ -1,13 +1,11 @@
-from datetime import datetime
 from typing import Any
-import requests
 
 from Programms.MDbMonitor.Api.Models.Departure import Departure
 from Programms.MDbMonitor.Api.Models.Line import Line
 from Programms.MDbMonitor.Api.Models.Location import Location
 from Programms.MDbMonitor.Api.Models.Station import Station
 from Programms.MDbMonitor.Shared.Configuration import Configuration
-from Programms.MDbMonitor.lib.DependencyInjector import DpiEntryPoint
+from libs.DependencyInjection import DpiEntryPoint
 
 
 class ApiService:

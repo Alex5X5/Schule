@@ -2,7 +2,7 @@ from Programms.MDbMonitor.App.Mapping.LineMapper import LineMapper
 
 from Programms.MDbMonitor.Api.Services.ApiService import ApiService
 
-from Programms.MDbMonitor.lib.DependencyInjector import DpiEntryPoint
+from libs.DependencyInjection import DpiEntryPoint
 
 class LineService:
 

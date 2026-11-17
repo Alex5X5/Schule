@@ -5,7 +5,7 @@ from ttkwidgets.autocomplete import AutocompleteCombobox
 
 from Programms.MDbMonitor.Frontend.ViewModels.HeaderModel import HeaderModel
 
-from Programms.MDbMonitor.lib.DependencyInjector import ServiceCollection
+from libs.DependencyInjection import ServiceCollection
 
 class Header(tkinter.Frame):
 

@@ -1,5 +1,4 @@
 import sqlite3
-from lib2to3.fixes.fix_imports2 import MAPPING
 from typing import Any
 
 from Programms.Mod.DesignTimeService import DesignTimeService
